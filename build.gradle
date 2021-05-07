@@ -50,16 +50,16 @@ task test(type:Exec, dependsOn: vendor) {
 task phploc(type: Exec, description: 'Measure project size using PHPLOC') {
 	executable 'sh'
 	args '-c',"/usr/bin/phploc --count-tests \
-    --log-csv='/home/vagrant/phploc.csv' \
-    --log-xml='/home/vagrant/phploc.xml' \
+    --log-csv='./report/phploc.csv' \
+    --log-xml='./report/phploc.xml' \
      ./app"
 }
 
 task phpmd (type : Exec, description : "Perform project mess detection using PHPMD, and Creating a log file for the Continuous Integration Server"){
 	executable 'sh'
 	args '-c',"/usr/bin/phpmd ./app \
-    xml './phpmd.xml' \
-    --reportfile '/home/vagrant/phpmd.xml'\
+    xml './report/phpmd.xml' \
+    --reportfile './report/phpmd.xml'\
     --ignore-violations-on-exit"
 }
 

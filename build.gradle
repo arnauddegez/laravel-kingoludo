@@ -55,6 +55,40 @@ task phploc(type: Exec, description: 'Measure project size using PHPLOC') {
      ./app"
 }
 
+task phpmd (type : Exec, description : "Perform project mess detection using PHPMD, and Creating a log file for the Continuous Integration Server"){
+	executable 'sh'
+	args '-c',"/home/ubuntu/tools/phpmd ./app \
+    xml './phpmd.xml' \
+    --reportfile './build/reports/phpmd.xml'\
+    --ignore-violations-on-exit"
+}
+
+task phpcpd (type : Exec, description : "Find duplicate code using PHPCPD and log result in XML format."){
+	executable 'sh'
+	args '-c',"/home/ubuntu/tools/phpcpd \
+    --log-pmd './build/reports/pmd-cpd.xml' \
+    ./app"
+}
+
+task phpcs (type : Exec, description : "Find Coding Standard Violations using PHP_CodeSniffer"){
+	executable 'sh'
+	args '-c',"/home/ubuntu/tools/phpcs \
+    --report=checkstyle \
+    --report-file='./build/reports/checkstyle.xml' \
+    --standard=PSR2 \
+    --extensions=php \
+    --ignore=autoload.php \
+    --runtime-set ignore_errors_on_exit 1 \
+    --runtime-set ignore_warnings_on_exit 1 \
+    ./app/"
+}
+
+task phpdox (type : Exec, description : "Generating Docs enriched with pmd, checkstyle, phpcs,phpunit,phploc"){
+	executable 'sh'
+	args '-c',"/home/ubuntu/tools/phpdox \
+    -f ./phpdox.xml"
+}
+
 def tarfile = "application-" + version
 task packageDistribution(type: Zip, dependsOn: test) {
     from ('app') { into 'app' }

@@ -50,8 +50,8 @@ task test(type:Exec, dependsOn: vendor) {
 task phploc(type: Exec, description: 'Measure project size using PHPLOC') {
 	executable 'sh'
 	args '-c',"/usr/bin/phploc --count-tests \
-    --log-csv='./build/reports/phploc.csv' \
-    --log-xml='./build/reports/phploc.xml' \
+    --log-csv='/home/vagrant/phploc.csv' \
+    --log-xml='/home/vagrant/phploc.xml' \
      ./app"
 }
 
@@ -59,14 +59,14 @@ task phpmd (type : Exec, description : "Perform project mess detection using PHP
 	executable 'sh'
 	args '-c',"/usr/bin/phpmd ./app \
     xml './phpmd.xml' \
-    --reportfile './build/reports/phpmd.xml'\
+    --reportfile '/home/vagrant/phpmd.xml'\
     --ignore-violations-on-exit"
 }
 
 task phpcpd (type : Exec, description : "Find duplicate code using PHPCPD and log result in XML format."){
 	executable 'sh'
 	args '-c',"/usr/bin/phpcpd \
-    --log-pmd './build/reports/pmd-cpd.xml' \
+    --log-pmd '/home/vagrant/pmd-cpd.xml' \
     ./app"
 }
 
@@ -74,7 +74,7 @@ task phpcs (type : Exec, description : "Find Coding Standard Violations using PH
 	executable 'sh'
 	args '-c',"/usr/bin/phpcs \
     --report=checkstyle \
-    --report-file='./build/reports/checkstyle.xml' \
+    --report-file='/home/vagrant/checkstyle.xml' \
     --standard=PSR2 \
     --extensions=php \
     --ignore=autoload.php \

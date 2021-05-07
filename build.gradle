@@ -49,7 +49,7 @@ task test(type:Exec, dependsOn: vendor) {
 
 task phploc(type: Exec, description: 'Measure project size using PHPLOC') {
 	executable 'sh'
-	args '-c',"/home/ubuntu/tools/phploc --count-tests \
+	args '-c',"/usr/bin/phploc --count-tests \
     --log-csv='./build/reports/phploc.csv' \
     --log-xml='./build/reports/phploc.xml' \
      ./app"
@@ -57,7 +57,7 @@ task phploc(type: Exec, description: 'Measure project size using PHPLOC') {
 
 task phpmd (type : Exec, description : "Perform project mess detection using PHPMD, and Creating a log file for the Continuous Integration Server"){
 	executable 'sh'
-	args '-c',"/home/ubuntu/tools/phpmd ./app \
+	args '-c',"/usr/bin/phpmd ./app \
     xml './phpmd.xml' \
     --reportfile './build/reports/phpmd.xml'\
     --ignore-violations-on-exit"
@@ -65,14 +65,14 @@ task phpmd (type : Exec, description : "Perform project mess detection using PHP
 
 task phpcpd (type : Exec, description : "Find duplicate code using PHPCPD and log result in XML format."){
 	executable 'sh'
-	args '-c',"/home/ubuntu/tools/phpcpd \
+	args '-c',"/usr/bin/phpcpd \
     --log-pmd './build/reports/pmd-cpd.xml' \
     ./app"
 }
 
 task phpcs (type : Exec, description : "Find Coding Standard Violations using PHP_CodeSniffer"){
 	executable 'sh'
-	args '-c',"/home/ubuntu/tools/phpcs \
+	args '-c',"/usr/bin/phpcs \
     --report=checkstyle \
     --report-file='./build/reports/checkstyle.xml' \
     --standard=PSR2 \
@@ -85,7 +85,7 @@ task phpcs (type : Exec, description : "Find Coding Standard Violations using PH
 
 task phpdox (type : Exec, description : "Generating Docs enriched with pmd, checkstyle, phpcs,phpunit,phploc"){
 	executable 'sh'
-	args '-c',"/home/ubuntu/tools/phpdox \
+	args '-c',"/usr/bin/phpdox \
     -f ./phpdox.xml"
 }
 
